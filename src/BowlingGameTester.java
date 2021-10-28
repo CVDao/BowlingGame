@@ -150,6 +150,30 @@ public class BowlingGameTester {
 				"All-Strike-Final-Spare"
 		);
 		
+		testSetPinState(
+				new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+				"Pins-No-Hits"
+		);
+		
+		testSetPinState(
+				new int[]{10,10,10,10,10,10,10,10,10,10,10,10},
+				new int[]{10,30,60,90,120,150,180,210,240,270,290,300},
+				"Pins-All-Strikes"
+		);
+		
+		testSetPinState(
+				new int[]{10,10,10,10,10,10,10,10,10,9,10,10},
+				new int[]{10,30,60,90,120,150,180,210,240,267,269,279},
+				"Pins-All-Strike-Final-Spare"
+		);
+		
+		testSetPinState(
+				new int[]{3,7,10,4,6,10,10,10},
+				new int[]{3,7,17,25,29,39,59,89},
+				"Pins-Normal-Game"
+		);
+		
 		
 	}
 	
@@ -157,11 +181,25 @@ public class BowlingGameTester {
 		BowlingGame game = new BowlingGame();
 		for(int i = 0; i<rolls.length; ++i) {
 			if(game.roll(rolls[i]) == false) {
-				throw new Error("invalid roll: " + rolls[i]);
+				throw new Error("ERROR: " + testName + ": invalid roll: " + rolls[i]);
 			}
 				
 			if(game.getScore() != expectedScore[i]) {
-				throw new Error("ERROR: score " + game.getScore() + " does not match expected score " + expectedScore[i]);
+				throw new Error("ERROR: " + testName + ": score " + game.getScore() + " does not match expected score " + expectedScore[i]);
+			}
+		}
+		System.out.println("PASS: " + testName);
+	}
+	
+	public static void testSetPinState(int[] pinState, int[] expectedScore, String testName) throws Error {
+		BowlingGame game = new BowlingGame();
+		for(int i = 0; i<pinState.length; ++i) {
+			if(game.setPinState(pinState[i]) == false) {
+				throw new Error("ERROR: " + testName + ": invalid pinState: " + pinState[i]);
+			}
+				
+			if(game.getScore() != expectedScore[i]) {
+				throw new Error("ERROR: " + testName + ": score " + game.getScore() + " does not match expected score " + expectedScore[i]);
 			}
 		}
 		System.out.println("PASS: " + testName);

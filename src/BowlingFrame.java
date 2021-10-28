@@ -1,4 +1,3 @@
-
 /**
  * Represents a single round of a bowling game.
  * Contains two rolls. Rolls set to -1 have not been rolled.
@@ -77,5 +76,4 @@ public class BowlingFrame {
 				return 0;
 		}
 	}
-
 }

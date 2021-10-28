@@ -42,8 +42,9 @@ public class BowlingGame {
 			return 0;
 		}
 
-		if(offset == 0)
+		if(offset == 0) {
 			return rolls[base].getRoll(0);
+		}
 		
 		int cOffset = 1;
 		for(int i = base+1; i<rolls.length; ++i) {
@@ -63,15 +64,17 @@ public class BowlingGame {
 				}
 				++cOffset;
 			}
-			if(cOffset > offset)
+			if(cOffset > offset) {
 				return 0;
+			}
 		}
 		return 0;
 	}
 	
 	public boolean roll(int num) {
-		if(curFrame > 9 + bonusRolls())
+		if(curFrame > 9 + bonusRolls()) {
 			return false;
+		}
 		else if(curFrame > 9) {
 			rolls[curFrame].roll(num);
 			++curFrame;
@@ -83,6 +86,21 @@ public class BowlingGame {
 				++curFrame;
 			return true;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param num number of pins knocked down in total
+	 * @return true if roll is possible, false if its not
+	 */
+	public boolean setPinState(int num) {
+		BowlingFrame cFrame = rolls[curFrame];
+		int pointsScored = cFrame.started()? num - cFrame.getScore(): num;
+		
+		if(pointsScored < 0)
+			return false;
+		
+		return roll(pointsScored);
 	}
 	
 	public int bonusRolls() {
