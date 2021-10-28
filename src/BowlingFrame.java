@@ -31,7 +31,7 @@ public class BowlingFrame {
 	}
 	
 	public boolean started() {
-		return firstRoll != -1;
+		return (firstRoll != -1);
 	}
 	
 	// returns true if roll is successfully logged
@@ -56,7 +56,7 @@ public class BowlingFrame {
 	
 	/**
 	 * Get the total score of the frame
-	 * @return score of frame, or 0 if no rolls have been mae
+	 * @return score of frame, or 0 if no rolls have been made
 	 */
 	public int getScore() {
 		if(rolls == 0)
